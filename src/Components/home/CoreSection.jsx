@@ -11,9 +11,8 @@ const CoreBackground = () => {
     const PARTICLE_COUNT = 5000;
     const scene = new THREE.Scene();
     
-    // Adjusting camera to shift view perspective
     const camera = new THREE.PerspectiveCamera(50, container.offsetWidth / container.offsetHeight, 0.1, 100);
-    camera.position.set(1.5, 0.5, 4); // Moved camera X to 1.5 to shift the wave right
+    camera.position.set(1.5, 0.5, 4); 
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(container.offsetWidth, container.offsetHeight);
@@ -49,8 +48,6 @@ const CoreBackground = () => {
     });
 
     const particles = new THREE.Points(particlesGeometry, material);
-    
-    // Position the actual particle object further to the right
     particles.position.x = 1.0; 
     particles.rotation.x = -Math.PI * 0.3;
     scene.add(particles);
@@ -69,18 +66,17 @@ const CoreBackground = () => {
       time += 0.015;
       const posAttr = particlesGeometry.attributes.position;
       for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const x = initialPositions[i * 3];
-        const y = initialPositions[i * 3 + 1];
-        const dist = Math.sqrt(x * x + y * y);
+        const x_val = initialPositions[i * 3];
+        const y_val = initialPositions[i * 3 + 1];
+        const dist = Math.sqrt(x_val * x_val + y_val * y_val);
         const wave = Math.sin(dist * 2.5 - time) * 0.15;
         posAttr.array[i * 3 + 2] = wave;
-        posAttr.array[i * 3] = x + Math.cos(time + dist) * 0.02;
-        posAttr.array[i * 3 + 1] = y + Math.sin(time + dist) * 0.02;
+        posAttr.array[i * 3] = x_val + Math.cos(time + dist) * 0.02;
+        posAttr.array[i * 3 + 1] = y_val + Math.sin(time + dist) * 0.02;
       }
       posAttr.needsUpdate = true;
-      particles.rotation.z += 0.0005; // Slower, calmer rotation
+      particles.rotation.z += 0.0005; 
       
-      // Reactive movement
       particles.position.x += (1.0 + mouseX * 0.3 - particles.position.x) * 0.05;
       particles.position.y += (-mouseY * 0.3 - particles.position.y) * 0.05;
 
@@ -126,31 +122,50 @@ export default function CoreSection() {
     return () => observer.disconnect();
   }, []);
 
-  const text = "Relentra is a Finland-based data, AI, and analytics consultancy. We help organizations turn data and AI into clear, decision-ready systems — designed for how people actually think, decide, and work.";
-  const words = text.split(" ");
+  const fullText = "Relentra is a Finland-based data, AI, and analytics consultancy. We help organizations turn data and AI into clear, decision-ready systems — designed for how people actually think, decide, and work.";
+  const words = fullText.split(" ");
+  const grayPart = "Relentra is a Finland-based data, AI, and analytics consultancy.";
 
   return (
-    <section id="work" ref={sectionRef} className="relative bg-white py-40 px-6 md:px-12 lg:px-16 overflow-hidden flex flex-col items-center justify-center">
+    <section id="work" ref={sectionRef} className="relative bg-white py-12 md:py-24 px-6 md:px-12 lg:px-16 overflow-hidden flex flex-col items-center justify-center">
       <CoreBackground />
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto min-h-[400px]">
-        <h2 className={`absolute top-0 left-0 text-sm font-bold tracking-widest uppercase text-gray-500 transition-opacity duration-1000 ${hasAppeared ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-start">
+        
+        {/* "Our Core" Title - Reduced spacing (20% of previous) */}
+        <h2 className={`text-sm font-bold tracking-widest uppercase text-[#282828] mb-4 md:mb-6 transition-opacity duration-1000 ${hasAppeared ? 'opacity-100' : 'opacity-0'}`}>
           Our Core
         </h2>
         
-        <div className="flex items-center justify-center pt-12 lg:pt-0 min-h-[400px]">
-          <p className="max-w-4xl text-center text-[32px] md:text-[44px] leading-tight text-[#282828] font-medium flex flex-wrap justify-center">
-            {words.map((word, i) => (
-              <span
-                key={i}
-                className={`inline-block mr-3 transition-all duration-700 ease-out ${
-                  hasAppeared ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${i * 50}ms` }}
-              >
-                {word}
-              </span>
-            ))}
+        {/* Main Text Content */}
+        <div className="w-full flex items-center justify-center">
+          <p 
+            className="flex flex-wrap justify-center text-center"
+            style={{ 
+              fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
+              fontWeight: 700,
+            }}
+          >
+            {words.map((word, i) => {
+              const cumulativeString = words.slice(0, i + 1).join(" ");
+              const isGray = grayPart.includes(word) && cumulativeString.length <= grayPart.length;
+
+              return (
+                <span
+                  key={i}
+                  className={`inline-block mx-1 md:mx-2 transition-all duration-700 ease-out ${
+                    hasAppeared ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  } text-[24px] sm:text-[36px] md:text-[50px] lg:text-[62.464px] leading-tight md:leading-[68px]`}
+                  style={{ 
+                    transitionDelay: `${i * 30}ms`,
+                    letterSpacing: '-0.437248px',
+                    color: isGray ? '#9ca3af' : '#282828'
+                  }}
+                >
+                  {word}
+                </span>
+              );
+            })}
           </p>
         </div>
       </div>

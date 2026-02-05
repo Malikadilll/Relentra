@@ -4,7 +4,7 @@ export default function SolitaHero() {
   const [animationState, setAnimationState] = useState(0);
   const canvasRef = useRef(null);
 
-  // --- KEEPING YOUR ORIGINAL BACKGROUND LOGIC ---
+  // --- BACKGROUND LOGIC ---
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -108,7 +108,6 @@ export default function SolitaHero() {
     };
   }, []);
 
-  // --- UPDATED LAYOUT LOGIC TO REDUCE SCALE ---
   useEffect(() => {
     const timings = [200, 550, 900, 1250, 1850, 2200, 2550, 3000, 3400];
     timings.forEach((timing, index) => {
@@ -116,20 +115,37 @@ export default function SolitaHero() {
     });
   }, []);
 
+  // Updated Styling Objects
+  const heroHeadingStyle = {
+    fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
+    fontSize: '46.56px',
+    lineHeight: '48.888px',
+    fontWeight: 700,
+    letterSpacing: '-0.32592px',
+    color: '#282828',
+  };
+
+  const taglineTextStyle = {
+    fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
+    fontSize: '20.608px',
+    lineHeight: '23.6992px',
+    fontWeight: 700,
+    letterSpacing: '0.123648px',
+    color: '#282828',
+  };
+
   return (
-    <div className="relative min-h-[85vh] flex items-center bg-white overflow-hidden pt-16">
-      
-      {/* YOUR CANVAS REMAINS UNTOUCHED */}
+    <div className="relative min-h-[85vh] flex items-center bg-white overflow-hidden pt-16 pb-12">
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />
 
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-12">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-16">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 md:px-8 py-12">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-16">
           
-          {/* Left Side: Scaled down text  */}
+          {/* Left Side */}
           <div className="w-full lg:w-[50%]">
-            <h1 className="font-medium leading-[1.2] text-[#282828] mb-10" style={{ fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif' }}>
+            <h1 className="mb-10" style={heroHeadingStyle}>
               {['So, a data scientist,', 'a developer &', 'a psychologist meet', 'over coffee...'].map((text, i) => (
-                <div key={i} className={`text-[36px] md:text-[46px] xl:text-[52px] transition-all duration-700 ease-out ${
+                <div key={i} className={`transition-all duration-700 ease-out ${
                   animationState >= i + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}>
                   {text}
@@ -137,28 +153,46 @@ export default function SolitaHero() {
               ))}
             </h1>
             
-            {/* Tagline [cite: 21, 22, 23] */}
-            <div className={`border-l-[2px] border-black pl-8 space-y-4 transition-all duration-1000 delay-500 ${
+            <div className={`relative border-l-[2px] border-black pl-8 pb-4 transition-all duration-1000 delay-500 ${
               animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
             }`}>
-              <p className="text-lg text-gray-600 leading-relaxed max-w-md">
-                Three perspectives. One coffee table. A shared curiosity about why things work or don't.
-              </p>
-              <p className="text-lg font-bold text-[#282828]">
-                Welcome to Relentra.
-              </p>
+              <div className="space-y-4">
+                <p style={taglineTextStyle} className="max-w-md">
+                  Three perspectives. One coffee table. A shared curiosity about why things work or don't.
+                </p>
+                <p style={taglineTextStyle}>
+                  Welcome to Relentra.
+                </p>
+              </div>
+
+              {/* Bounce Arrow aligned with the border line */}
+              <div className="mt-8 group cursor-pointer w-fit">
+  <svg 
+    className="w-6 h-6 animate-bounce" /* Removed group-hover: prefix */
+    fill="none" 
+    stroke="currentColor" 
+    viewBox="0 0 24 24" 
+    strokeWidth="2.5"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" 
+    />
+  </svg>
+</div>
             </div>
           </div>
 
-          {/* Right Side: Scaled down video blocks */}
-          <div className="w-full lg:w-[38%] max-w-[420px]">
-            <div className="flex gap-3 h-[380px] md:h-[450px]">
+          {/* Right Side */}
+          <div className="w-full lg:w-[38%] max-w-[420px] self-center">
+            <div className="flex gap-[2px] h-[380px] md:h-[450px]">
               {[
                 { src: "1", origin: "bottom", step: 5, color: "bg-gray-100" },
                 { src: "2", origin: "center", step: 6, color: "bg-gray-200" },
                 { src: "3", origin: "top", step: 7, color: "bg-gray-300" }
               ].map((vid, i) => (
-                <div key={i} className="flex-1 rounded-xl overflow-hidden relative">
+                <div key={i} className="flex-1 overflow-hidden relative">
                   <div className={`absolute inset-0 ${vid.color} transition-all duration-1000 ease-out ${
                     animationState >= vid.step ? 'scale-y-100' : 'scale-y-0'
                   }`} style={{ transformOrigin: vid.origin }}>
