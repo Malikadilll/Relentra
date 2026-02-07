@@ -4,7 +4,7 @@ export default function SolitaHero() {
   const [animationState, setAnimationState] = useState(0);
   const canvasRef = useRef(null);
 
-  // --- BACKGROUND LOGIC ---
+  // --- BACKGROUND PARTICLE LOGIC ---
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -66,7 +66,7 @@ export default function SolitaHero() {
         let size = (Math.random() * 2) + 1;
         let x = Math.random() * window.innerWidth;
         let y = Math.random() * window.innerHeight;
-        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.6)'));
+        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.15)'));
       }
     }
 
@@ -79,7 +79,7 @@ export default function SolitaHero() {
           let dist = dx * dx + dy * dy;
           if (dist < (connectDistance * connectDistance)) {
             let opacity = 1 - (dist / (connectDistance * connectDistance));
-            ctx.strokeStyle = `rgba(40,40,40,${opacity * 0.4})`;
+            ctx.strokeStyle = `rgba(40,40,40,${opacity * 0.1})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -108,6 +108,7 @@ export default function SolitaHero() {
     };
   }, []);
 
+  // --- HERO ANIMATION TIMINGS ---
   useEffect(() => {
     const timings = [200, 550, 900, 1250, 1850, 2200, 2550, 3000, 3400];
     timings.forEach((timing, index) => {
@@ -115,96 +116,165 @@ export default function SolitaHero() {
     });
   }, []);
 
-  // Updated Styling Objects
-  const heroHeadingStyle = {
-    fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
-    fontSize: '46.56px',
-    lineHeight: '48.888px',
-    fontWeight: 700,
-    letterSpacing: '-0.32592px',
-    color: '#282828',
-  };
-
-  const taglineTextStyle = {
-    fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
-    fontSize: '20.608px',
-    lineHeight: '23.6992px',
-    fontWeight: 700,
-    letterSpacing: '0.123648px',
-    color: '#282828',
-  };
-
   return (
-    <div className="relative min-h-[85vh] flex items-center bg-white overflow-hidden pt-16 pb-12">
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />
+    <div className="relative min-h-screen bg-white overflow-hidden">
+      {/* Background Layer */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute top-0 left-0 w-full h-full pointer-events-none" 
+        style={{ zIndex: 0 }} 
+      />
 
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 md:px-8 py-12">
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-16">
-          
-          {/* Left Side */}
-          <div className="w-full lg:w-[50%]">
-            <h1 className="mb-10" style={heroHeadingStyle}>
-              {['So, a data scientist,', 'a developer &', 'a psychologist meet', 'over coffee...'].map((text, i) => (
-                <div key={i} className={`transition-all duration-700 ease-out ${
-                  animationState >= i + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                }`}>
+      {/* Hero Content Layer */}
+      <div className="relative z-10 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 lg:py-28">
+        
+        {/* --- MOBILE LAYOUT --- */}
+        <div className="lg:hidden">
+          <h1 
+            className="font-medium leading-[1.1] mb-8"
+            style={{ fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif', color: '#282828' }}
+          >
+            {[
+              "So, a data scientist,",
+              "an AI designer &",
+              "a developer walk into",
+              "a juice bar..."
+            ].map((text, i) => (
+              <div 
+                key={i}
+                className={`text-[36px] sm:text-[44px] transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
+                  animationState >= i + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                {text}
+              </div>
+            ))}
+          </h1>
+
+          <div className="flex gap-2 h-[320px] sm:h-[380px] mb-8 ml-auto w-[85%]">
+            {[
+              { id: 1, color: "bg-gray-800", origin: "bottom", step: 5 },
+              { id: 2, color: "bg-orange-500", origin: "center", step: 6 },
+              { id: 3, color: "bg-purple-500", origin: "top", step: 7 }
+            ].map((vid) => (
+              <div key={vid.id} className="flex-1 rounded-lg overflow-hidden relative">
+                <div 
+                  className={`absolute inset-0 ${vid.color} transition-all duration-700 ease-out ${
+                    animationState >= vid.step ? 'scale-y-100' : 'scale-y-50'
+                  }`}
+                  style={{ transformOrigin: vid.origin }}
+                >
+                  <video autoPlay loop muted playsInline className="h-full w-full object-cover">
+                    <source src={`https://www.solita.fi/wp-content/uploads/2023/11/frontpage-video-person-${vid.id}.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className={`border-l-[3px] border-black pl-6 space-y-4 transition-all duration-700 ease-out ${
+            animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+          }`}>
+            <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-medium" style={{ color: '#282828' }}>
+              Beautiful, unexpected things<br />happen when diverse teams<br />dive into juicy problems.
+            </p>
+            <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-bold" style={{ color: '#282828' }}>
+              Welcome to Solita.
+            </p>
+            <div className="pt-3">
+              <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* --- DESKTOP LAYOUT --- */}
+        <div className="hidden lg:flex justify-between gap-16">
+          <div className="w-[48%] xl:w-[50%]">
+            <h1 
+              className="font-medium leading-[1.1] mb-16"
+              style={{ fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif', color: '#282828' }}
+            >
+              {[
+                "So, a data scientist,",
+                "an AI designer &",
+                "a developer walk into",
+                "a juice bar..."
+              ].map((text, i) => (
+                <div 
+                  key={i}
+                  className={`text-[72px] xl:text-[88px] transition-all duration-800 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
+                    animationState >= i + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  }`}
+                >
                   {text}
                 </div>
               ))}
             </h1>
             
-            <div className={`relative border-l-[2px] border-black pl-8 pb-4 transition-all duration-1000 delay-500 ${
+            <div className={`border-l-[3px] border-black pl-8 space-y-6 transition-all duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
             }`}>
-              <div className="space-y-4">
-                <p style={taglineTextStyle} className="max-w-md">
-                  Three perspectives. One coffee table. A shared curiosity about why things work or don't.
-                </p>
-                <p style={taglineTextStyle}>
-                  Welcome to Relentra.
-                </p>
+              <p className="text-[20px] leading-[40px] font-medium" style={{ color: '#282828' }}>
+                Beautiful, unexpected things<br />happen when diverse teams<br />dive into juicy problems.
+              </p>
+              <p className="text-[20px] leading-[40px] font-bold" style={{ color: '#282828' }}>
+                Welcome to Solita.
+              </p>
+              <div className="pt-4">
+                <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[42%] xl:w-[38%] ml-auto">
+            <div className="flex gap-3 h-[750px] xl:h-[820px]">
+              {/* Left Block */}
+              <div className="flex-1 rounded-lg overflow-hidden relative">
+                <div 
+                  className={`absolute inset-0 bg-gray-800 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    animationState >= 8 ? 'scale-y-100 duration-[600ms]' : animationState >= 5 ? 'scale-y-[0.48] duration-[700ms]' : 'scale-y-0 duration-[500ms]'
+                  }`}
+                  style={{ transformOrigin: 'bottom' }}
+                >
+                  <video autoPlay loop muted playsInline className="h-full w-full object-cover">
+                    <source src="https://www.solita.fi/wp-content/uploads/2023/11/frontpage-video-person-1.mp4" type="video/mp4" />
+                  </video>
+                </div>
               </div>
 
-              {/* Bounce Arrow aligned with the border line */}
-              <div className="mt-8 group cursor-pointer w-fit">
-  <svg 
-    className="w-6 h-6 animate-bounce" /* Removed group-hover: prefix */
-    fill="none" 
-    stroke="currentColor" 
-    viewBox="0 0 24 24" 
-    strokeWidth="2.5"
-  >
-    <path 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" 
-    />
-  </svg>
-</div>
-            </div>
-          </div>
-
-          {/* Right Side */}
-          <div className="w-full lg:w-[38%] max-w-[420px] self-center">
-            <div className="flex gap-[2px] h-[380px] md:h-[450px]">
-              {[
-                { src: "1", origin: "bottom", step: 5, color: "bg-gray-100" },
-                { src: "2", origin: "center", step: 6, color: "bg-gray-200" },
-                { src: "3", origin: "top", step: 7, color: "bg-gray-300" }
-              ].map((vid, i) => (
-                <div key={i} className="flex-1 overflow-hidden relative">
-                  <div className={`absolute inset-0 ${vid.color} transition-all duration-1000 ease-out ${
-                    animationState >= vid.step ? 'scale-y-100' : 'scale-y-0'
-                  }`} style={{ transformOrigin: vid.origin }}>
-                    <video autoPlay loop muted playsInline className="h-full w-full object-cover">
-                      <source src={`https://www.solita.fi/wp-content/uploads/2023/11/frontpage-video-person-${vid.src}.mp4`} type="video/mp4" />
-                    </video>
-                  </div>
+              {/* Middle Block */}
+              <div className="flex-1 rounded-lg overflow-hidden relative">
+                <div 
+                  className={`absolute inset-0 bg-orange-500 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    animationState >= 6 ? 'scale-y-100 duration-[750ms]' : 'scale-y-0 duration-[500ms]'
+                  }`}
+                  style={{ transformOrigin: 'center' }}
+                >
+                  <video autoPlay loop muted playsInline className="h-full w-full object-cover">
+                    <source src="https://www.solita.fi/wp-content/uploads/2023/11/frontpage-video-person-2.mp4" type="video/mp4" />
+                  </video>
                 </div>
-              ))}
+              </div>
+
+              {/* Right Block */}
+              <div className="flex-1 rounded-lg overflow-hidden relative">
+                <div 
+                  className={`absolute inset-0 bg-purple-500 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    animationState >= 8 ? 'scale-y-100 duration-[600ms]' : animationState >= 7 ? 'scale-y-[0.48] duration-[700ms]' : 'scale-y-0 duration-[500ms]'
+                  }`}
+                  style={{ transformOrigin: 'top' }}
+                >
+                  <video autoPlay loop muted playsInline className="h-full w-full object-cover">
+                    <source src="https://www.solita.fi/wp-content/uploads/2023/11/frontpage-video-person-3.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

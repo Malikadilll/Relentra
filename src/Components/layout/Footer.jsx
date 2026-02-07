@@ -154,18 +154,18 @@ export default function Footer() {
             <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase mb-6 font-semibold">Follow Us</p>
             <div className="flex gap-2.5">
               <SocialIcon href="https://linkedin.com/company/relentra/" icon={<Linkedin size={18} />} />
-              <SocialIcon href="https://facebook.com" icon={<Facebook size={18} />} />
-              <SocialIcon href="https://instagram.com" icon={<Instagram size={18} />} />
-              <SocialIcon href="https://youtube.com" icon={<Youtube size={18} />} />
+              <SocialIcon href="https://www.facebook.com/people/Relentra/61585171402825/" icon={<Facebook size={18} />} />
+              <SocialIcon href="https://www.instagram.com/relentraofficial/" icon={<Instagram size={18} />} />
+              <SocialIcon href="https://www.youtube.com/@RelentraOfficial" icon={<Youtube size={18} />} />
             </div>
           </div>
         </div>
 
         {/* Footer Bottom Links */}
         <div className="flex flex-col md:flex-row justify-end gap-8 text-[11px] text-gray-500 border-t border-white/10 pt-10">
-          <a href="#" className="hover:text-white transition-colors">Privacy policy →</a>
-          <a href="#" className="hover:text-white transition-colors">Cookie settings →</a>
-          <a href="#" className="hover:text-white transition-colors">Terms & conditions →</a>
+          <a href="https://relentra.io/privacy-policy/" className="hover:text-white transition-colors">Privacy policy →</a>
+          <a href="https://relentra.io/cookies-policy/" className="hover:text-white transition-colors">Cookie settings →</a>
+          <a href="https://relentra.io/terms-conditions/" className="hover:text-white transition-colors">Terms & conditions →</a>
         </div>
       </div>
     </footer>
