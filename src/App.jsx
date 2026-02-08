@@ -9,6 +9,7 @@ import NavBar from "./Components/layout/Navbar"
 import Contact from "./Components/home/ContactForm";
 
 function App() {
+  
   return (
     <div>
       <NavBar/>

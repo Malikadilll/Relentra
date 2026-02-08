@@ -20,19 +20,18 @@ export default function Culture() {
             Our Culture
           </h2>
 
-          {/* Main Heading Container */}
-<div className="w-full mb-32 md:mb-48 flex flex-col items-center">
+         {/* Main Heading Container */}
+<div className="w-full mb-32 md:mb-48 flex flex-col items-start md:items-center"> {/* Changed items-center to items-start for better mobile flow */}
   <div 
      style={mainTextStyle}
-     className="text-left text-[26px] sm:text-[40px] md:text-[54px] lg:text-[62px] leading-[1.15] break-words max-w-fit lg:max-w-5xl"
-  >
-    {/* Added 'indent-8 md:indent-20' to create the tab space on the first line only */}
+     className="text-left text-[26px] sm:text-[40px] md:text-[54px] lg:text-[62px] leading-[1.15] break-words w-full lg:max-w-5xl" 
+  > {/* Changed max-w-fit to w-full */}
     <p className="indent-8 md:indent-20">
       We work best in environments
       <br className="hidden sm:block" /> 
       <span className="opacity-40">
         {" "}that value curiosity, clarity, and calm confidence.
-        <span className="hidden md:inline"> We value clear thinking over clever solutions.</span>
+        <span> We value clear thinking over clever solutions.</span>
       </span>
     </p>
   </div>
