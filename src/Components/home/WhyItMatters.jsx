@@ -9,7 +9,6 @@ export default function WhyItMatters() {
     "Teams unsure when to trust the system — or themselves",
   ];
 
-  // Unified style for all text after the main heading
   const textStyle = {
     fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif',
     fontSize: '18px',
@@ -20,18 +19,19 @@ export default function WhyItMatters() {
   };
 
   return (
-    <section className="group relative pt-16 px-6 md:px-10 bg-white">
+    /* Reduced px-6 to px-4 for tighter mobile padding */
+    <section className="group relative pt-16 px-4 md:px-10 bg-white">
       <div className="w-full">
-        <div className="flex items-stretch gap-6 md:gap-10">
+        {/* gap-4 on mobile to keep text close to the line */}
+        <div className="flex items-stretch gap-4 md:gap-10 text-left">
           
           {/* Thicker 3px Solid Black Vertical Line */}
           <div className="relative flex flex-col items-center">
             <div className="w-[3px] h-full bg-[#282828]" />
           </div>
 
-          {/* Content */}
-          <div className="flex-1 space-y-10 pb-16">
-            {/* Heading: Kept original as requested */}
+          {/* Content - text-left ensures alignment stays consistent */}
+          <div className="flex-1 space-y-10 pb-16 text-left">
             <h2 
               className="text-[#282828]"
               style={{
@@ -45,7 +45,6 @@ export default function WhyItMatters() {
               Why this<br />matters
             </h2>
 
-            {/* Intro & Struggles: Now using unified textStyle */}
             <div style={textStyle}>
               <p className="mb-6">
                 Most organizations don’t lack data or technology.
@@ -57,7 +56,7 @@ export default function WhyItMatters() {
                 {struggles.map((item, i) => (
                   <li
                     key={i}
-                    className="group/item flex gap-4 cursor-default"
+                    className="group/item flex gap-4 cursor-default text-left"
                   >
                     <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-black shrink-0 transition-transform duration-300 group-hover/item:scale-150" />
                     <span>{item}</span>
@@ -66,15 +65,13 @@ export default function WhyItMatters() {
               </ul>
             </div>
 
-            {/* Statement and Image Container */}
-            <div className="space-y-4"> {/* Reduced vertical spacing */}
-              <p style={{ ...textStyle, fontWeight: '700' }}>
+            <div className="space-y-4">
+              <p style={{ ...textStyle, fontWeight: '700' }} className="text-left">
                 Technology isn’t the bottleneck.
                 <br />
                 <span className="opacity-50">Decision confidence is.</span>
               </p>
 
-              {/* Icon and Image with minimal gap */}
               <div className="flex flex-col gap-2"> 
                 <div className="flex items-center justify-start">
                   <ArrowUpRight 
@@ -86,7 +83,7 @@ export default function WhyItMatters() {
                 <img
                   src="https://www.solita.fi/wp-content/uploads/2023/06/hilite-1.png"
                   alt="Illustration"
-                  className="w-full  shadow-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                  className="w-full shadow-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
                 />
               </div>
             </div>

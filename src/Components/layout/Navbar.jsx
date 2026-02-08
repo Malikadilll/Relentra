@@ -46,22 +46,29 @@ export default function Navbar() {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
         
         {/* Relentra Logo */}
-        <div className="text-2xl font-black tracking-tighter text-[#282828] cursor-pointer transition-opacity duration-300 hover:opacity-40">
-          RELENTRA
-        </div>
+        {/* Relentra Logo */}
+<div 
+  className="text-2xl font-black tracking-tighter text-[#282828] cursor-pointer transition-opacity duration-300 hover:opacity-40"
+  onClick={() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMenuOpen(false); // Close mobile menu if it's open
+  }}
+>
+  RELENTRA
+</div>
 
         {/* Desktop 2x3 Grid Navigation */}
         <div className="hidden lg:grid grid-cols-3 gap-x-12 gap-y-2">
           <div className="flex flex-col gap-1">
-            <NavLink text="Work" href="#work" />
-            <NavLink text="Services" href="#services" />
+            <NavLink text="Core" href="#work" />
+            <NavLink text="Work" href="#services" />
           </div>
           <div className="flex flex-col gap-1">
-            <NavLink text="Industries" href="#industries" />
-            <NavLink text="Insights" href="#insights" />
+            <NavLink text="Why it Matters" href="#industries" />
+            <NavLink text="Perspective" href="#insights" />
           </div>
           <div className="flex flex-col gap-1">
-            <NavLink text="About" href="#about" />
+            <NavLink text="Culture" href="#culture" />
             <NavLink text="Join us" href="#about" />
           </div>
         </div>
@@ -97,11 +104,11 @@ export default function Navbar() {
       {/* Mobile Dropdown Menu */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white ${isMenuOpen ? 'max-h-screen opacity-100 border-b' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col px-6 py-8 gap-2">
-          <NavLink text="Work" href="#work" isMobile />
-          <NavLink text="Services" href="#services" isMobile />
-          <NavLink text="Industries" href="#industries" isMobile />
-          <NavLink text="Insights" href="#insights" isMobile />
-          <NavLink text="About" href="#about" isMobile />
+          <NavLink text="Core" href="#work" isMobile />
+          <NavLink text="Work" href="#services" isMobile />
+          <NavLink text="Why This Matters" href="#industries" isMobile />
+          <NavLink text="Perspective" href="#insights" isMobile />
+          <NavLink text="Culture" href="#culture" isMobile />
           <NavLink text="Join us" href="#about" isMobile />
           <div className="pt-6 flex flex-col gap-6">
              <div className="flex items-center justify-between group cursor-pointer">

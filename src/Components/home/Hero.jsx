@@ -63,10 +63,11 @@ export default function SolitaHero() {
       particlesArray = [];
       let numberOfParticles = (window.innerWidth * window.innerHeight) / 12000;
       for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1;
+        let size = (Math.random() * 2) + 1.5; // Slightly larger nodes
         let x = Math.random() * window.innerWidth;
         let y = Math.random() * window.innerHeight;
-        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.15)'));
+        // DARKER NODES: Opacity at 0.5 for high visibility
+        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.5)'));
       }
     }
 
@@ -79,8 +80,9 @@ export default function SolitaHero() {
           let dist = dx * dx + dy * dy;
           if (dist < (connectDistance * connectDistance)) {
             let opacity = 1 - (dist / (connectDistance * connectDistance));
-            ctx.strokeStyle = `rgba(40,40,40,${opacity * 0.1})`;
-            ctx.lineWidth = 0.5;
+            // DARKER & THICKER LINES: 0.4 opacity and 1.2 width
+            ctx.strokeStyle = `rgba(40, 40, 40, ${opacity * 0.4})`;
+            ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
             ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -126,7 +128,7 @@ export default function SolitaHero() {
       />
 
       {/* Hero Content Layer */}
-      <div className="relative z-10 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 lg:py-28">
+      <div className="relative z-10 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-24 pb-12 md:py-20 lg:py-28">
         
         {/* --- MOBILE LAYOUT --- */}
         <div className="lg:hidden">

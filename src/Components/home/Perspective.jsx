@@ -19,17 +19,19 @@ export default function Perspective() {
   };
 
   return (
-    <section className="group relative pt-16 px-6 md:px-10 bg-white">
+    /* Reduced px-6 to px-4 for mobile */
+    <section className="group relative pt-16 px-4 md:px-10 bg-white">
       <div className="w-full">
-        <div className="flex items-stretch gap-6 md:gap-10">
+        {/* gap-4 on mobile to keep text flush with the line */}
+        <div className="flex items-stretch gap-4 md:gap-10 text-left">
           
           <div className="relative flex flex-col items-center">
             <div className="w-[3px] h-full bg-[#282828]" />
           </div>
 
-          <div className="flex-1 space-y-10 pb-16">
+          <div className="flex-1 space-y-10 pb-16 text-left">
             <h2 
-              className="text-[#282828]"
+              className="text-[#282828] text-left"
               style={{
                 fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
                 fontSize: 'clamp(40px, 5vw, 62.464px)',
@@ -41,7 +43,7 @@ export default function Perspective() {
               Our<br />perspective
             </h2>
 
-            <div style={textStyle} className="space-y-6 max-w-4xl">
+            <div style={textStyle} className="space-y-6 max-w-4xl text-left">
               <p>
                 We don’t see analytics, AI, and engineering as separate disciplines.
               </p>
@@ -55,7 +57,7 @@ export default function Perspective() {
 
               <ul className="space-y-4 pt-4">
                 {points.map((item, i) => (
-                  <li key={i} className="group/item flex gap-4 cursor-default">
+                  <li key={i} className="group/item flex gap-4 cursor-default text-left">
                     <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-black shrink-0 transition-transform duration-300 group-hover/item:scale-150" />
                     <span>{item}</span>
                   </li>
@@ -73,7 +75,7 @@ export default function Perspective() {
               <img
                 src="https://www.solita.fi/wp-content/uploads/2023/05/Industrial_1200x630.jpg"
                 alt="Industrial perspective"
-                className="w-full  shadow-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                className="w-full shadow-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </div>

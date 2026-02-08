@@ -21,9 +21,11 @@ export default function WorkServices() {
   };
 
   return (
-    <section className="group relative pt-16 px-6 md:px-10 bg-white">
+    /* Reduced px-6 to px-4 for mobile consistency */
+    <section className="group relative pt-16 px-4 md:px-10 bg-white">
       <div className="w-full">
-        <div className="flex items-stretch gap-6 md:gap-10">
+        {/* gap-4 on mobile for a tighter look against the line */}
+        <div className="flex items-stretch gap-4 md:gap-10 text-left">
           
           {/* Consistent 3px Vertical Line */}
           <div className="relative flex flex-col items-center">
@@ -31,9 +33,9 @@ export default function WorkServices() {
           </div>
 
           {/* Content */}
-          <div className="flex-1 pb-16">
+          <div className="flex-1 pb-16 text-left">
             <h2 
-              className="text-[#282828] mb-10"
+              className="text-[#282828] mb-10 text-left"
               style={{
                 fontFamily: '"Sharp Sans Display No1", Helvetica, Arial, sans-serif',
                 fontSize: 'clamp(40px, 5vw, 62.464px)',
@@ -45,20 +47,18 @@ export default function WorkServices() {
               Work
             </h2>
 
-            {/* Simplified Service List */}
-            <div style={textStyle} className="max-w-4xl">
+            {/* Service List */}
+            <div style={textStyle} className="max-w-4xl text-left">
               <ul className="space-y-8">
                 {services.map((service, i) => (
-                  <li key={i} className="flex flex-col">
-                    {/* Splits the string at the colon to style the first part bold if desired, 
-                        or just renders as one clean block like your image */}
+                  <li key={i} className="flex flex-col text-left">
                     <span>{service}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Compressed Icon and Image Section */}
+            {/* Icon and Image Section */}
             <div className="flex flex-col mt-10"> 
               <div className="flex items-center justify-start -mb-2"> 
                 <ArrowUpRight 
