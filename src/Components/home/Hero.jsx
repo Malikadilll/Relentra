@@ -200,9 +200,9 @@ export default function SolitaHero() {
             >
               {[
                 "So, a data scientist,",
-                "an AI designer &",
-                "a developer walk into",
-                "a juice bar..."
+                "a developer &",
+                "a psychologist meet",
+                "over coffee..."
               ].map((text, i) => (
                 <div 
                   key={i}
@@ -219,10 +219,10 @@ export default function SolitaHero() {
               animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
             }`}>
               <p className="text-[20px] leading-[40px] font-medium" style={{ color: '#282828' }}>
-                Beautiful, unexpected things<br />happen when diverse teams<br />dive into juicy problems.
+                Three perspectives.<br/> One coffee table.<br/> A shared curiosity about why<br/> things work - or don't.
               </p>
               <p className="text-[20px] leading-[40px] font-bold" style={{ color: '#282828' }}>
-                Welcome to Solita.
+                Welcome to Relentra.
               </p>
               <div className="pt-4">
                 <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
