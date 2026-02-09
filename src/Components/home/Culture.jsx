@@ -10,34 +10,36 @@ export default function Culture() {
   };
 
   return (
-    // Increased vertical padding: py-32 (top/bottom) and md:py-56 for larger screens
     <section className="relative bg-white py-32 md:py-56 px-6 md:px-10 overflow-hidden w-full">
+      
+      {/* HEADER POSITIONED OUTSIDE PADDING - Exact pattern as CoreSection */}
+      <div className="absolute left-3 top-24 md:top-44">
+         <h2 className="text-[11px] md:text-sm font-bold tracking-[0.2em] uppercase text-[#282828]">
+            Our Culture
+          </h2>
+      </div>
+
       <div className="relative z-10 w-full max-w-[1400px] mx-auto">
         <div className="flex flex-col">
           
-          {/* Section Label - Added more bottom margin (mb-16) */}
-          <h2 className="text-[11px] md:text-sm font-bold tracking-[0.2em] uppercase text-[#282828] mb-12 md:mb-20 text-left">
-            Our Culture
-          </h2>
+          {/* Main Heading Container */}
+          <div className="w-full mb-32 md:mb-48 flex flex-col items-start md:items-center">
+            <div 
+              style={mainTextStyle}
+              className="text-left text-[26px] sm:text-[40px] md:text-[54px] lg:text-[62px] leading-[1.15] break-words w-full lg:max-w-5xl" 
+            >
+              <p className="indent-8 md:indent-20">
+                We work best in environments
+                <br className="hidden sm:block" /> 
+                <span className="opacity-40">
+                  {" "}that value curiosity, clarity, and calm confidence.
+                  <span> We value clear thinking over clever solutions.</span>
+                </span>
+              </p>
+            </div>
+          </div>
 
-         {/* Main Heading Container */}
-<div className="w-full mb-32 md:mb-48 flex flex-col items-start md:items-center"> {/* Changed items-center to items-start for better mobile flow */}
-  <div 
-     style={mainTextStyle}
-     className="text-left text-[26px] sm:text-[40px] md:text-[54px] lg:text-[62px] leading-[1.15] break-words w-full lg:max-w-5xl" 
-  > {/* Changed max-w-fit to w-full */}
-    <p className="indent-8 md:indent-20">
-      We work best in environments
-      <br className="hidden sm:block" /> 
-      <span className="opacity-40">
-        {" "}that value curiosity, clarity, and calm confidence.
-        <span> We value clear thinking over clever solutions.</span>
-      </span>
-    </p>
-  </div>
-</div>
-
-          {/* Bottom Content Split - Added more gap (gap-20) */}
+          {/* Bottom Content Split */}
           <div className="flex flex-col md:flex-row items-start md:items-center gap-16 md:gap-24 w-full">
             
             {/* Image side (65%) */}

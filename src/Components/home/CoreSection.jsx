@@ -6,11 +6,10 @@ const CoreBackground = ({ isActive }) => {
   const rendererRef = useRef(null);
 
   useEffect(() => {
-    // If section is not active/visible, don't create a context
     if (!isActive || !containerRef.current) return;
 
     const container = containerRef.current;
-    const PARTICLE_COUNT = 4000; // Slightly lower for better mobile stability
+    const PARTICLE_COUNT = 4000;
     const scene = new THREE.Scene();
     
     const camera = new THREE.PerspectiveCamera(50, container.offsetWidth / container.offsetHeight, 0.1, 100);
@@ -96,8 +95,6 @@ const CoreBackground = ({ isActive }) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(frameId);
-      
-      // CRITICAL: Force context loss to release GPU slot immediately
       if (renderer) {
         renderer.forceContextLoss();
         renderer.dispose();
@@ -108,7 +105,7 @@ const CoreBackground = ({ isActive }) => {
       particlesGeometry.dispose();
       material.dispose();
     };
-  }, [isActive]); // Re-run whenever visibility changes
+  }, [isActive]);
 
   return <div ref={containerRef} className="absolute inset-0 z-0 pointer-events-none overflow-hidden" />;
 };
@@ -124,36 +121,40 @@ export default function CoreSection() {
         setIsIntersecting(entry.isIntersecting);
         if (entry.isIntersecting) setHasAppeared(true);
       },
-      { threshold: 0.01 }
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const fullText = "Relentra is a Finland-based data, AI, and analytics consultancy. We help organizations turn data and AI into clear, decision-ready systems — Designed for how people actually think, decide, and work.";
+  const fullText = "Relentra is a Finland-based data, AI, and analytics consultancy. We help organizations turn data and AI into clear, decision-ready systems Designed for how people actually think, decide, and work.";
   const words = fullText.split(" ");
-  const grayPart = "Relentra is a Finland-based data, AI, and analytics consultancy.";
   
-  // Find the index of "designed"
+  const grayEndIndex = words.findIndex(word => word.includes("consultancy."));
   const secondIndentIndex = words.findIndex(word => word === "Designed");
 
   return (
     <section 
       id="work" 
       ref={sectionRef} 
-      className="relative bg-white py-24 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden flex flex-col items-center justify-center min-h-[80vh]"
+      className="relative bg-white py-24 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden min-h-[80vh] flex flex-col justify-center"
     >
       <CoreBackground isActive={isIntersecting} />
 
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col items-center">
-        
-        <div className="w-full max-w-6xl mb-8 md:mb-12">
-           <h2 className={`text-sm font-bold tracking-[0.2em] uppercase text-[#282828] transition-opacity duration-1000 ${hasAppeared ? 'opacity-100' : 'opacity-0'}`}>
+      {/* HEADER POSITIONED OUTSIDE PADDING 
+          'left-0' moves it to the absolute edge of the section.
+          'pl-4' or similar can be added if you want a tiny bit of breathing room from the screen edge.
+      */}
+      <div className={`absolute left-3 top-16 md:top-28 transition-opacity duration-1000 ${hasAppeared ? 'opacity-100' : 'opacity-0'}`}>
+         <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-[#282828] rotate-0 origin-left">
             Our Core
           </h2>
-        </div>
+      </div>
+
+      <div className="relative z-10 w-full flex flex-col items-start">
+        {/* Removed the old header div from here */}
         
-        <div className="w-full max-w-6xl"> 
+        <div className="w-full"> 
           <p 
             className="flex flex-wrap justify-start text-left"
             style={{ 
@@ -162,15 +163,12 @@ export default function CoreSection() {
             }}
           >
             {words.map((word, i) => {
-              const cumulativeString = words.slice(0, i + 1).join(" ");
-              const isGray = grayPart.includes(word) && cumulativeString.length <= grayPart.length;
-              
+              const isGray = i <= grayEndIndex;
               const isDesignedWord = i === secondIndentIndex;
               const shouldIndent = i === 0 || isDesignedWord;
 
               return (
                 <React.Fragment key={i}>
-                  {/* Force a new line and add vertical "half-line" space before "designed" */}
                   {isDesignedWord && <span className="basis-full h-4 md:h-8" />}
                   
                   <span
