@@ -63,10 +63,9 @@ export default function SolitaHero() {
       particlesArray = [];
       let numberOfParticles = (window.innerWidth * window.innerHeight) / 12000;
       for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1.5; // Slightly larger nodes
+        let size = (Math.random() * 2) + 1.5;
         let x = Math.random() * window.innerWidth;
         let y = Math.random() * window.innerHeight;
-        // DARKER NODES: Opacity at 0.5 for high visibility
         particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.5)'));
       }
     }
@@ -80,7 +79,6 @@ export default function SolitaHero() {
           let dist = dx * dx + dy * dy;
           if (dist < (connectDistance * connectDistance)) {
             let opacity = 1 - (dist / (connectDistance * connectDistance));
-            // DARKER & THICKER LINES: 0.4 opacity and 1.2 width
             ctx.strokeStyle = `rgba(40, 40, 40, ${opacity * 0.4})`;
             ctx.lineWidth = 1.2;
             ctx.beginPath();
@@ -130,17 +128,18 @@ export default function SolitaHero() {
       {/* Hero Content Layer */}
       <div className="relative z-10 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-24 pb-12 md:py-20 lg:py-28">
         
-        {/* --- MOBILE LAYOUT --- */}
+        {/* --- MOBILE LAYOUT (UPDATED) --- */}
         <div className="lg:hidden">
           <h1 
             className="font-medium leading-[1.1] mb-8"
             style={{ fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif', color: '#282828' }}
           >
+            {/* UPDATED TEXT HERE TO MATCH DESKTOP */}
             {[
               "So, a data scientist,",
-              "an AI designer &",
-              "a developer walk into",
-              "a juice bar..."
+              "a developer &",
+              "a psychologist meet",
+              "over coffee..."
             ].map((text, i) => (
               <div 
                 key={i}
@@ -177,11 +176,13 @@ export default function SolitaHero() {
           <div className={`border-l-[3px] border-black pl-6 space-y-4 transition-all duration-700 ease-out ${
             animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
           }`}>
+            {/* UPDATED PARAGRAPH TO MATCH DESKTOP */}
             <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-medium" style={{ color: '#282828' }}>
-              Beautiful, unexpected things<br />happen when diverse teams<br />dive into juicy problems.
+              Three perspectives.<br/> One coffee table.<br/> A shared curiosity about why<br/> things work - or don't.
             </p>
+            {/* UPDATED WELCOME TEXT */}
             <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-bold" style={{ color: '#282828' }}>
-              Welcome to Solita.
+              Welcome to Relentra.
             </p>
             <div className="pt-3">
               <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +192,7 @@ export default function SolitaHero() {
           </div>
         </div>
 
-        {/* --- DESKTOP LAYOUT --- */}
+        {/* --- DESKTOP LAYOUT (ALREADY CORRECT) --- */}
         <div className="hidden lg:flex justify-between gap-16">
           <div className="w-[48%] xl:w-[50%]">
             <h1 
