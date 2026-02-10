@@ -1,47 +1,55 @@
 import React from 'react';
+import WorkServices from "../Components/home/WorkServices";
+import CoreSection from "../Components/home/CoreSection";
+import Culture from "../Components/home/Culture";
+import SolitaHero from "../Components/home/Hero";
+import WhyItMatters from "../Components/home/WhyItMatters";
+import Perspective from "../Components/home/Perspective";
+import Contact from "../Components/home/ContactForm";
+import TeamSection from "../Components/home/TeamSection";
 
-// Import all modular components from your screenshot
-import Hero from '../Components/home/Hero';
-import CoreSection from '../Components/home/CoreSection';
-import WhyItMatters from '../Components/home/WhyItMatters';
-import Perspective from '../Components/home/Prespective'; // Matches your screenshot typo
-import WorkServices from '../Components/home/WorkServices';
-import Culture from '../Components/home/Culture';
-import ContactForm from '../Components/home/ContactForm';
-
-// Optional: Layout components if you have them in the layout folder
-// import Navbar from '../Components/layout/Navbar';
-// import Footer from '../Components/layout/Footer';
-
-export default function Home() {
+const Home = () => {
   return (
-    <div className="min-h-screen bg-white">
-      {/* <Navbar /> */}
-      
-      <main>
-        {/* 1. Hero / Tagline [cite: 1] */}
-        <Hero />
-        
-        {/* 2. Our Core [cite: 26, 29] */}
-        <CoreSection />
-        
-        {/* 3. Why this matters [cite: 32, 47] */}
-        <WhyItMatters />
-        
-        {/* 4. Our perspective [cite: 55, 57] */}
-        <Perspective />
-        
-        {/* 5. Work / Services [cite: 68, 92] */}
-        <WorkServices />
-        
-        {/* 5.1 Our culture [cite: 101, 105] */}
-        <Culture />
-        
-        {/* 7. Close with a calm invitation [cite: 108, 110] */}
-        <ContactForm />
-      </main>
+    <>
+      <SolitaHero />
 
-      {/* <Footer /> */}
-    </div>
+      <section id="work" className="scroll-mt-20">
+        <CoreSection />
+      </section>
+
+      <div className="relative max-w-[1600px] mx-auto px-6 py-8 md:py-16">
+        <div className="flex flex-col md:grid md:grid-cols-12 md:gap-y-0">
+          <section id="industries" className="z-10 w-full mb-12 md:mb-0 md:col-start-1 md:col-span-4 md:row-start-1 scroll-mt-20">
+            <WhyItMatters />
+          </section>
+
+          <section id="insights" className="z-30 w-full mb-12 md:mb-0 md:col-start-9 md:col-span-4 md:row-start-1 md:mt-[110%] scroll-mt-20">
+            <div className="bg-white">
+              <Perspective />
+            </div>
+          </section>
+
+          <section id="services" className="z-20 w-full md:col-start-5 md:col-span-4 md:row-start-2 md:mt-[-90%] lg:mt-[-110%] scroll-mt-20">
+            <div className="bg-white">
+              <WorkServices />
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section id="culture" className="scroll-mt-20">
+        <Culture />
+      </section>
+
+      <section id="team" className="scroll-mt-20">
+        <TeamSection />
+      </section>
+
+      <section id="contact" className="scroll-mt-20">
+        <Contact />
+      </section>
+    </>
   );
-}
+};
+
+export default Home;

@@ -2,25 +2,16 @@ import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Linkedin, Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react';
 import * as THREE from 'three';
+import { Link } from 'react-router-dom'; // Ensure this is imported
 
-// This component creates the "particle wave" seen in your image
 function ParticleBackground() {
   const points = useRef();
-  
-  // Increased count slightly for density, as the area is now narrower
   const count = 5000; 
   const [positions] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      // Shifting X further left: 
-      // Current math: starts at -10 and spreads only 6 units wide
-      // This keeps the "bulk" of the cloud off-screen to the left or hugging the edge
       pos[i * 3] = (Math.random() * 6) - 10; 
-      
-      // Y remains tall to cover the footer height
       pos[i * 3 + 1] = (Math.random() - 0.5) * 15; 
-      
-      // Z depth for parallax effect
       pos[i * 3 + 2] = (Math.random() - 0.5) * 5;
     }
     return [pos];
@@ -30,12 +21,9 @@ function ParticleBackground() {
     const t = state.clock.getElapsedTime();
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      // Gentle vertical drifting
       points.current.geometry.attributes.position.array[i3 + 1] += Math.cos(t * 0.2 + points.current.geometry.attributes.position.array[i3]) * 0.003;
     }
     points.current.geometry.attributes.position.needsUpdate = true;
-    
-    // Subtle rotation to give it a 3D "cloud" feel
     points.current.rotation.y = Math.sin(t * 0.1) * 0.05;
   });
 
@@ -50,12 +38,12 @@ function ParticleBackground() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025} // Smaller particles for a more refined "dust" look
+        size={0.025}
         color="#ffffff"
         transparent
         opacity={0.3}
         sizeAttenuation={true}
-        blending={THREE.AdditiveBlending} // Makes them "glow" slightly when overlapping
+        blending={THREE.AdditiveBlending}
       />
     </points>
   );
@@ -72,7 +60,6 @@ export default function Footer() {
         </Canvas>
       </div>
 
-      {/* Main Content - Ensure z-10 so it stays above the particles */}
       <div className="max-w-[1200px] mx-auto relative z-10">
         
         {/* Top Section */}
@@ -163,9 +150,11 @@ export default function Footer() {
 
         {/* Footer Bottom Links */}
         <div className="flex flex-col md:flex-row justify-end gap-8 text-[11px] text-gray-500 border-t border-white/10 pt-10">
-          <a href="https://relentra.io/privacy-policy/" className="hover:text-white transition-colors">Privacy policy →</a>
-          <a href="https://relentra.io/cookies-policy/" className="hover:text-white transition-colors">Cookie settings →</a>
-          <a href="https://relentra.io/terms-conditions/" className="hover:text-white transition-colors">Terms & conditions →</a>
+          {/* UPDATED: Internal route for Privacy Policy */}
+          <Link to="/services">Services</Link>
+          <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy policy →</Link>
+          <Link to="/cookies-policy" className="hover:text-white transition-colors">Cookie settings →</Link>
+          <Link to="/terms-conditions" className="hover:text-white transition-colors">Terms & conditions →</Link>
         </div>
       </div>
     </footer>
