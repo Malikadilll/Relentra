@@ -66,7 +66,8 @@ export default function SolitaHero() {
         let size = (Math.random() * 2) + 1.5;
         let x = Math.random() * window.innerWidth;
         let y = Math.random() * window.innerHeight;
-        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.5)'));
+        // UPDATED: Opacity changed from 0.5 to 0.3
+        particlesArray.push(new Particle(x, y, Math.random() * 2 - 1, Math.random() * 2 - 1, size, 'rgba(40, 40, 40, 0.3)'));
       }
     }
 
@@ -79,7 +80,8 @@ export default function SolitaHero() {
           let dist = dx * dx + dy * dy;
           if (dist < (connectDistance * connectDistance)) {
             let opacity = 1 - (dist / (connectDistance * connectDistance));
-            ctx.strokeStyle = `rgba(40, 40, 40, ${opacity * 0.4})`;
+            // Lowered line opacity slightly to match the softer nodes
+            ctx.strokeStyle = `rgba(40, 40, 40, ${opacity * 0.3})`;
             ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -118,23 +120,19 @@ export default function SolitaHero() {
 
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
-      {/* Background Layer */}
       <canvas 
         ref={canvasRef} 
         className="absolute top-0 left-0 w-full h-full pointer-events-none" 
         style={{ zIndex: 0 }} 
       />
 
-      {/* Hero Content Layer */}
       <div className="relative z-10 w-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-24 pb-12 md:py-20 lg:py-28">
-        
-        {/* --- MOBILE LAYOUT (UPDATED) --- */}
+        {/* MOBILE LAYOUT */}
         <div className="lg:hidden">
           <h1 
             className="font-medium leading-[1.1] mb-8"
             style={{ fontFamily: '"Sharp Sans", Helvetica, Arial, sans-serif', color: '#282828' }}
           >
-            {/* UPDATED TEXT HERE TO MATCH DESKTOP */}
             {[
               "So, a data scientist,",
               "a developer &",
@@ -176,11 +174,9 @@ export default function SolitaHero() {
           <div className={`border-l-[3px] border-black pl-6 space-y-4 transition-all duration-700 ease-out ${
             animationState >= 9 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
           }`}>
-            {/* UPDATED PARAGRAPH TO MATCH DESKTOP */}
             <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-medium" style={{ color: '#282828' }}>
               Three perspectives.<br/> One coffee table.<br/> A shared curiosity about why<br/> things work - or don't.
             </p>
-            {/* UPDATED WELCOME TEXT */}
             <p className="text-[16px] sm:text-[17px] leading-[32px] sm:leading-[34px] font-bold" style={{ color: '#282828' }}>
               Welcome to Relentra.
             </p>
@@ -192,7 +188,7 @@ export default function SolitaHero() {
           </div>
         </div>
 
-        {/* --- DESKTOP LAYOUT (ALREADY CORRECT) --- */}
+        {/* DESKTOP LAYOUT */}
         <div className="hidden lg:flex justify-between gap-16">
           <div className="w-[48%] xl:w-[50%]">
             <h1 
@@ -235,7 +231,6 @@ export default function SolitaHero() {
 
           <div className="w-[42%] xl:w-[38%] ml-auto">
             <div className="flex gap-3 h-[750px] xl:h-[820px]">
-              {/* Left Block */}
               <div className="flex-1 rounded-lg overflow-hidden relative">
                 <div 
                   className={`absolute inset-0 bg-gray-800 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -249,7 +244,6 @@ export default function SolitaHero() {
                 </div>
               </div>
 
-              {/* Middle Block */}
               <div className="flex-1 rounded-lg overflow-hidden relative">
                 <div 
                   className={`absolute inset-0 bg-orange-500 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -263,7 +257,6 @@ export default function SolitaHero() {
                 </div>
               </div>
 
-              {/* Right Block */}
               <div className="flex-1 rounded-lg overflow-hidden relative">
                 <div 
                   className={`absolute inset-0 bg-purple-500 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
