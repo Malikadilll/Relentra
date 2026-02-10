@@ -7,6 +7,7 @@ import Perspective from "./Components/home/Perspective"
 import Footer from "./Components/layout/Footer"
 import NavBar from "./Components/layout/Navbar"
 import Contact from "./Components/home/ContactForm";
+import TeamSection from "./Components/home/TeamSection";
 
 function App() {
   
@@ -43,6 +44,10 @@ function App() {
       {/* JOIN US now scrolls here */}
       <section id="culture" className="scroll-mt-20">
         <Culture/>
+      </section>
+
+      <section id="team" className="scroll-mt-20">
+        <TeamSection/>
       </section>
 
       <section id="contact" className="scroll-mt-20">

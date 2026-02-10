@@ -10,7 +10,7 @@ export default function Culture() {
   };
 
   return (
-    <section className="relative bg-white py-32 md:py-56 px-6 md:px-10 overflow-hidden w-full">
+    <section className="relative bg-white py-32 md:py-56 px-6 md:px-10 pb-16 md:pb-24 overflow-hidden w-full">
       
       {/* HEADER POSITIONED OUTSIDE PADDING - Exact pattern as CoreSection */}
       <div className="absolute left-3 top-24 md:top-44">
